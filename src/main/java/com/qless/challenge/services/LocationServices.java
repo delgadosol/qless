@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class LocationServices {
@@ -12,7 +14,13 @@ public class LocationServices {
     @Autowired
     DataSource dataSource;
 
-    public List<Location> findLocations() {
-        return dataSource.getLocations();
+    public List<Location> findLocations(String searchText) {
+        List<Location> result = dataSource.getLocations();
+        if (Objects.nonNull(searchText)) {
+            result = result.stream()
+                    .filter(location -> location.getName().toLowerCase().contains(searchText.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        return result;
     }
 }
