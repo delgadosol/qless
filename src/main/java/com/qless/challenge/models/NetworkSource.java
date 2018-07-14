@@ -19,6 +19,18 @@ public class NetworkSource {
         this.indirectId = indirectId;
     }
 
+    private NetworkSource(Builder builder) {
+        setType(builder.type);
+        setGlobalId(builder.globalId);
+        setHostName(builder.hostName);
+        setHostId(builder.hostId);
+        setIndirectId(builder.indirectId);
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
     public SourceType getType() {
         return type;
     }
@@ -57,5 +69,46 @@ public class NetworkSource {
 
     public void setIndirectId(String indirectId) {
         this.indirectId = indirectId;
+    }
+
+
+    public static final class Builder {
+        private SourceType type;
+        private String globalId;
+        private String hostName;
+        private int hostId;
+        private String indirectId;
+
+        private Builder() {
+        }
+
+        public Builder withType(SourceType val) {
+            type = val;
+            return this;
+        }
+
+        public Builder withGlobalId(String val) {
+            globalId = val;
+            return this;
+        }
+
+        public Builder withHostName(String val) {
+            hostName = val;
+            return this;
+        }
+
+        public Builder withHostId(int val) {
+            hostId = val;
+            return this;
+        }
+
+        public Builder withIndirectId(String val) {
+            indirectId = val;
+            return this;
+        }
+
+        public NetworkSource build() {
+            return new NetworkSource(this);
+        }
     }
 }

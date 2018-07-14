@@ -24,7 +24,15 @@ public class LocationController {
             notes = "This method identifies valid locations that match ALL provided search criteria. Simpler queries work best for experimentation and early development, whereas multi-parameter queries permit strict optimization of client data usage.")
     public List<Location> getLocations(
             @ApiParam(value = "Identify and sort merchants or locations for which the search text offers approximate matches.")
-            @RequestParam(required = false) String searchText) {
-        return locationServices.findLocations(searchText);
+            @RequestParam(required = false) String searchText
+            , @ApiParam(value = "Limits results to a region with its center specified by the given GPS longitude")
+            @RequestParam(required = false) Double longitude
+            , @ApiParam(value = "Limits results to a region with its center specified by the given GPS latitude.")
+            @RequestParam(required = false) Double latitude
+            ,@ApiParam(value = "Radius of the search area in meters.")
+            @RequestParam(required = false, defaultValue = "50000") Double searchRadius
+            ,@ApiParam(value = "Limits/queries locations by the provided global identifier.")
+            @RequestParam(required = false) List<String> gid) {
+        return locationServices.findLocations(searchText, longitude, latitude, searchRadius, gid);
     }
 }
