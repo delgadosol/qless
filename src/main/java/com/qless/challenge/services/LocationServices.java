@@ -24,10 +24,10 @@ public class LocationServices {
                     .filter(location -> location.getName().toLowerCase().contains(searchText.toLowerCase())
                             || location.getMerchant().getName().toLowerCase().contains(searchText.toLowerCase()));
         }
-        if (nonNull(longitude) || nonNull(latitude)){
+        if (nonNull(longitude) || nonNull(latitude)) {
             //TODO: calculate distance
         }
-        if (nonNull(gid)){
+        if (nonNull(gid)) {
             result = result
                     .filter(location -> gid.contains(location.getSource().getGlobalId()));
         }
