@@ -17,7 +17,7 @@ public class LocationServices {
     DataSource dataSource;
 
     public List<Location> findLocations(String searchText, Double longitude, Double latitude, Double searchRadius
-            , List<String> gid) {
+            , List<String> gid, Integer maximumResults) {
         Stream<Location> result = dataSource.getLocations().stream();
         if (nonNull(searchText)) {
             result = result
@@ -31,6 +31,8 @@ public class LocationServices {
             result = result
                     .filter(location -> gid.contains(location.getSource().getGlobalId()));
         }
-        return result.collect(Collectors.toList());
+        return result
+                .limit(maximumResults)
+                .collect(Collectors.toList());
     }
 }

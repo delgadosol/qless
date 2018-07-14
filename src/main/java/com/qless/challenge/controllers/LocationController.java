@@ -32,7 +32,9 @@ public class LocationController {
             ,@ApiParam(value = "Radius of the search area in meters.")
             @RequestParam(required = false, defaultValue = "50000") Double searchRadius
             ,@ApiParam(value = "Limits/queries locations by the provided global identifier.")
-            @RequestParam(required = false) List<String> gid) {
-        return locationServices.findLocations(searchText, longitude, latitude, searchRadius, gid);
+            @RequestParam(required = false) List<String> gid
+            ,@ApiParam(value = "Limits/queries locations by the provided global identifier.")
+            @RequestParam(required = false, defaultValue = "10") Integer maximumResults) {
+        return locationServices.findLocations(searchText, longitude, latitude, searchRadius, gid, maximumResults);
     }
 }

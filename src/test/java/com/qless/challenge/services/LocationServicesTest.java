@@ -42,7 +42,7 @@ public class LocationServicesTest {
         Location location2 = createLocation(null, createMerchant("merchant Name"), null);
 
         locations.addAll(Arrays.asList(location1, location2));
-        List<Location> locations = locationServices.findLocations(null, null, null, null, null);
+        List<Location> locations = locationServices.findLocations(null, null, null, null, null, 10);
         assertEquals(2, locations.size());
     }
 
@@ -56,7 +56,7 @@ public class LocationServicesTest {
 
 
         locations.addAll(Arrays.asList(location1, location2, location3, location4, location5));
-        List<Location> locations = locationServices.findLocations("Mis", null, null, null, null);
+        List<Location> locations = locationServices.findLocations("Mis", null, null, null, null, 10);
         assertEquals(3, locations.size());
         assertTrue(locations.contains(location1));
         assertTrue(locations.contains(location3));
@@ -70,7 +70,7 @@ public class LocationServicesTest {
 
 
         locations.addAll(Arrays.asList(location1, location2));
-        List<Location> locations = locationServices.findLocations("miss", null, null, null, null);
+        List<Location> locations = locationServices.findLocations("miss", null, null, null, null, 10);
         assertTrue(locations.isEmpty());
     }
 
@@ -81,7 +81,7 @@ public class LocationServicesTest {
 
 
         locations.addAll(Arrays.asList(location1, location2));
-        List<Location> locations = locationServices.findLocations("Coun", null, null, null, null);
+        List<Location> locations = locationServices.findLocations("Coun", null, null, null, null, 10);
         assertEquals(1, locations.size());
         assertTrue(locations.contains(location1));
     }
@@ -93,23 +93,39 @@ public class LocationServicesTest {
 
 
         locations.addAll(Arrays.asList(location1, location2));
-        List<Location> locations = locationServices.findLocations("son", null, null, null, null);
+        List<Location> locations = locationServices.findLocations("son", null, null, null, null, 10);
         assertEquals(2, locations.size());
         assertTrue(locations.contains(location1));
         assertTrue(locations.contains(location2));
     }
 
     @Test
-    public void whenGidSpecified_givenLocationsThatContainsGid_shouldReturnLocationsWithGid() {
+    public void whenGidFilterSpecified_givenLocationsThatContainsGid_shouldReturnLocationsWithGid() {
         NetworkSource networkSource1 = NetworkSource.newBuilder().withGlobalId("123").build();
         NetworkSource networkSource2 = NetworkSource.newBuilder().withGlobalId("234").build();
         Location location1 = createLocation(null, null, networkSource1);
         Location location2 = createLocation(null, null, networkSource2);
 
         locations.addAll(Arrays.asList(location1, location2));
-        List<Location> locations = locationServices.findLocations(null, null, null, null, Collections.singletonList("123"));
+        List<Location> locations = locationServices.findLocations(null, null, null, null, Collections.singletonList("123"), 10);
         assertEquals(1, locations.size());
         assertTrue(locations.contains(location1));
+    }
+
+    @Test
+    public void whenMaxResultsFilterSpecified_givenLocationsThatContainsText_shouldReturnMaxResultLocation() {
+        Location location1 = new Location();
+        Location location2 = new Location();
+        Location location3 = new Location();
+        Location location4 = new Location();
+        Location location5 = new Location();
+
+
+        locations.addAll(Arrays.asList(location1, location2, location3, location4, location5));
+        List<Location> locations = locationServices.findLocations(null, null, null, null, null, 2);
+        assertEquals(2, locations.size());
+        assertTrue(locations.contains(location1));
+        assertTrue(locations.contains(location2));
     }
 
     private Location createLocation(String name, Merchant merchant, NetworkSource networkSource) {
