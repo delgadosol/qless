@@ -18,7 +18,8 @@ public class LocationServices {
         List<Location> result = dataSource.getLocations();
         if (Objects.nonNull(searchText)) {
             result = result.stream()
-                    .filter(location -> location.getName().toLowerCase().contains(searchText.toLowerCase()))
+                    .filter(location -> location.getName().toLowerCase().contains(searchText.toLowerCase())
+                            || location.getMerchant().getName().toLowerCase().contains(searchText.toLowerCase()))
                     .collect(Collectors.toList());
         }
         return result;

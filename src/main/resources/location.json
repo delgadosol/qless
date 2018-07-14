@@ -1,8 +1,28 @@
 [
   {
-    "name": "Mission"
+    "name": "Mission",
+    "merchantInfo": {
+      "source": {
+        "type": "merchant",
+        "globalId": "906FD6A0EA54A7590CA7025C568A8E77A8318297",
+        "hostName": "merchant.us.qless.com",
+        "hostId": 24,
+        "indirectId": "78dce0bd-2c73-42a0-ada9-c3aeee99b3c1"
+      },
+      "name": "Johnson County"
+    }
   },
   {
-    "name": "Olathe"
+    "name": "Olathe",
+      "merchantInfo": {
+        "source": {
+          "type": "merchant",
+          "globalId": "906FD6A0EA54A7590CA7025C568A8E77A8318297",
+          "hostName": "merchant.us.qless.com",
+          "hostId": 24,
+          "indirectId": "78dce0bd-2c73-42a0-ada9-c3aeee99b3c1"
+        },
+        "name": "Johnson County"
+      }
   }
 ]
