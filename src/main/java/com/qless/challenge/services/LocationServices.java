@@ -12,7 +12,7 @@ public class LocationServices {
     @Autowired
     DataSource dataSource;
 
-    public List<Location> findLocations(){
+    public List<Location> findLocations() {
         return dataSource.getLocations();
     }
 }
