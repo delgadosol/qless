@@ -11,13 +11,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LocationServicesTest {
@@ -126,6 +122,31 @@ public class LocationServicesTest {
         assertEquals(2, locations.size());
         assertTrue(locations.contains(location1));
         assertTrue(locations.contains(location2));
+    }
+
+
+    @Test
+    public void whenLocationGid_givenAnyMatch_shouldNotReturnOptionalEmpty() {
+        NetworkSource networkSource1 = NetworkSource.newBuilder().withGlobalId("123").build();
+        NetworkSource networkSource2 = NetworkSource.newBuilder().withGlobalId("234").build();
+        Location location1 = createLocation(null, null, networkSource1);
+        Location location2 = createLocation(null, null, networkSource2);
+
+        locations.addAll(Arrays.asList(location1, location2));
+        Optional<Location> optionalLocation = locationServices.findLocation("anyGid");
+        assertFalse(optionalLocation.isPresent());
+    }
+
+    @Test
+    public void givenALocationGidMatchWithALocation_shouldReturnOptionalPresentTrue() {
+        NetworkSource networkSource1 = NetworkSource.newBuilder().withGlobalId("123").build();
+        NetworkSource networkSource2 = NetworkSource.newBuilder().withGlobalId("234").build();
+        Location location1 = createLocation(null, null, networkSource1);
+        Location location2 = createLocation(null, null, networkSource2);
+
+        locations.addAll(Arrays.asList(location1, location2));
+        Optional<Location> optionalLocation = locationServices.findLocation("234");
+        assertTrue(optionalLocation.isPresent());
     }
 
     private Location createLocation(String name, Merchant merchant, NetworkSource networkSource) {

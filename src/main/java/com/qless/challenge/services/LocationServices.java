@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,8 +32,16 @@ public class LocationServices {
             result = result
                     .filter(location -> gid.contains(location.getSource().getGlobalId()));
         }
+
         return result
                 .limit(maximumResults)
                 .collect(Collectors.toList());
+    }
+
+    public Optional<Location> findLocation(String gid) {
+        return dataSource.getLocations()
+                .stream()
+                .filter(location -> location.getSource().getGlobalId().equalsIgnoreCase(gid))
+                .findFirst();
     }
 }

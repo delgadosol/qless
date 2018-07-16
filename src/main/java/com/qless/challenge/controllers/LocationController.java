@@ -34,13 +34,23 @@ public class LocationController {
             @RequestParam(required = false, defaultValue = "50000") Double searchRadius
             , @ApiParam(value = "Limits/queries locations by the provided global identifier.")
             @RequestParam(required = false) List<String> gid
-            , @ApiParam(value = "Limits/queries locations by the provided global identifier.")
+            , @ApiParam(value = "The maximum number of locations to return for a single query.")
             @RequestParam(required = false, defaultValue = "10") Integer maximumResults) {
         List<Location> locations = locationServices.findLocations(searchText, longitude, latitude, searchRadius, gid, maximumResults);
         if (locations.isEmpty()) {
             throw new LocationNotFoundException();
         }
         return locations;
+    }
+
+    @GetMapping("/{location_gid}")
+    @ApiOperation(value = "Returns a uniquely-identified merchant location",
+            notes = "This method returns a single merchant location that matches a unique global identifier. The global identifier is returned in a NetworkSource entity with a ‘location’ type, usually in response to a location search query.")
+    public Location getLocation(
+            @PathVariable(value = "location_gid") String location_gid
+    ) {
+        return locationServices.findLocation(location_gid)
+                .orElseThrow(LocationNotFoundException::new);
     }
 
     @ExceptionHandler(NumberFormatException.class)
