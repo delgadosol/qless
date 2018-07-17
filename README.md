@@ -1,45 +1,38 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Qless challenge
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+Produce a working microservice that adheres to the Swagger definition and source data attached.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+## Solution
 
----
+Spring boots application using [SpringFox](http://springfox.io), a module for enabling Swagger on Spring MVC projects.
 
-## Edit a file
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+TECH NOTE: This is a initial version of the microservice, there are some filter that are not implemented yet. 
+## Requirements
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+- [Java 8](https://java.com/en/download/)
+- [Maven](https://maven.apache.org/)
 
----
+## Compilation
 
-## Create a file
+To compile the code run:
 
-Next, you’ll add a new file to this repository.
+```bash
+$ mvn package 
+```
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+## Run
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+Once compiled it should have a target directory. Go to that directory an execute the following command:
 
----
+```bash
+$ java -jar challenge-0.0.1-SNAPSHOT.jar
+```
 
-## Clone a repository
+Alternatively you can use the Spring Boot Maven plugin:
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+```bash
+$ mvn spring-boot:run
+```
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+To view the generated Swagger UI documentation go to: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
